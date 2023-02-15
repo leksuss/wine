@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 
 ## How to use
 
-To run the script you need to prepare xlsx file with wine data. `wine.xlsx` is example of this file, you can find it in the root dirrectory of this repo. Then run the script and pass the path to this file as an argument:
+To run the script you need to prepare xlsx file with wine data. `wine.xlsx` is example of this file, you can find it in the root directory of this repo. Then run the script and pass the path to this file as an argument:
 
 ```
 python3 main.py wine.xlsx
