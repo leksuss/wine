@@ -8,18 +8,19 @@ This is websie of author's wine store named "New Russian Wine".
  - python3
  - `Jinja2` library
  - `pandas` library
+ - `openpyxl` library
 
 
 ## How to install
 
 Get the source code of this repo:
 ```
-git clone https://github.com/leksuss/dvmn.git
+git clone https://github.com/leksuss/wine.git
 ```
 
-Go to this script:
+Open project folder:
 ```
-cd dvmn/wine
+cd wine
 ```
 
 Then install dependencies:
@@ -36,7 +37,7 @@ To show actual goods at website you need to update file `wine.xlsx` with actual 
 
 Run script without arguments like this:
 ```
-python3 bitly.py
+python3 main.py
 ```
 
 Then open webpage [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
