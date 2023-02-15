@@ -1,3 +1,4 @@
+import argparse
 from datetime import date
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
@@ -6,6 +7,18 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
 SINCE_YEAR = 1920
+
+
+def read_args():
+    parser = argparse.ArgumentParser(
+        description='''
+            Runs server for wine website store.
+            Data for website gets from xlsx file.
+        '''
+    )
+    parser.add_argument('filename', help='xlsx file with wine data')
+    args = parser.parse_args()
+    return args
 
 
 def declension_year(num):
@@ -64,7 +77,7 @@ def runserver(rendered_page):
 
 if __name__ == '__main__':
 
-    excel_file = 'wine.xlsx'
+    excel_file = read_args().filename
 
     excel_data = read_excel(excel_file)
     rendered_page = prepare_page(excel_data)
