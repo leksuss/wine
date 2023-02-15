@@ -16,12 +16,12 @@ def read_args():
             Data for website gets from xlsx file.
         '''
     )
-    parser.add_argument('filename', help='xlsx file with wine data')
+    parser.add_argument('filepath', help='path to xlsx file with wine data')
     args = parser.parse_args()
     return args
 
 
-def declension_year(num):
+def get_declension_year(num):
     if num % 100 in range(11, 15):
         return 'лет'
     if num % 10 in range(2, 5):
@@ -31,25 +31,25 @@ def declension_year(num):
     return 'лет'
 
 
-def read_excel(filename):
-    excel_data_df = pandas.read_excel(
-        filename,
+def read_excel(filepath):
+    excel_df = pandas.read_excel(
+        filepath,
         sheet_name='Лист1',
         na_values=None,
         keep_default_na=False,
     )
 
-    return excel_data_df.to_dict('records')
+    return excel_df.to_dict('records')
 
 
-def prepare_excel_data(data):
-    categories = {}
-    for row in data:
-        categories.setdefault(row.pop('Категория'), []).append(row)
-    return categories
+def group_categories(wines):
+    wine_categories = {}
+    for wine in wines:
+        wine_categories.setdefault(wine.pop('Категория'), []).append(wine)
+    return wine_categories
 
 
-def prepare_page(excel_data):
+def prepare_page(wines):
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -60,8 +60,8 @@ def prepare_page(excel_data):
     passed_years = date.today().year - SINCE_YEAR
 
     rendered_page = template.render(
-        year_with_us=f'{passed_years} {declension_year(passed_years)}',
-        wine_categories=prepare_excel_data(excel_data),
+        year_with_us=f'{passed_years} {get_declension_year(passed_years)}',
+        wine_categories=group_categories(wines),
     )
 
     return rendered_page
@@ -77,9 +77,8 @@ def runserver(rendered_page):
 
 if __name__ == '__main__':
 
-    excel_file = read_args().filename
+    filepath = read_args().filepath
 
-    excel_data = read_excel(excel_file)
-    rendered_page = prepare_page(excel_data)
+    rendered_page = prepare_page(read_excel(filepath))
 
     runserver(rendered_page)
