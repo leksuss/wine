@@ -29,15 +29,12 @@ Then install dependencies:
 pip3 install -r requirements.txt
 ```
 
-## How to setup
-
-To show actual goods at website you need to update file `wine.xlsx` with actual data. You can use this file as a template. After renaming file you should change `excel_file` variable in `main.py` file.
-
 ## How to use
 
-Run script without arguments like this:
+To run the script you need to prepare xlsx file with wine data. `wine.xlsx` is example of this file, you can find it in the root dirrectory of this repo. Then run the script and pass the path to this file as an argument:
+
 ```
-python3 main.py
+python3 main.py wine.xlsx
 ```
 
 Then open webpage [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
